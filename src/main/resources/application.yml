@@ -12,5 +12,8 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
 
+  application:
+    name: techserve
+
 server:
   port: 8080
