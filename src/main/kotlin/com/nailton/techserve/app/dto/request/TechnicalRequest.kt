@@ -11,6 +11,6 @@ data class TechnicalRequest(
     val name: String,
 
     @field:NotBlank(message = "Telefone não pode ser vazio")
-    @field:Pattern(regexp = "^\\+?[1-9]\\d{1,14}$", message = "Número de telefone inválido")
+//    @field:Pattern(regexp = "^\\+?[1-9]\\d{1,14}$", message = "Número de telefone inválido")
     val telephone: String
 )
