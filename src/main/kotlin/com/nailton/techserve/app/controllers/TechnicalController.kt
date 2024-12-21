@@ -5,11 +5,9 @@ import com.nailton.techserve.app.dto.response.TechnicalResponse
 import com.nailton.techserve.app.dto.request.TechnicalRequest
 import org.springframework.web.util.UriComponentsBuilder
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
 import jakarta.validation.Valid
+import org.springframework.http.HttpStatus
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/technicals")
@@ -28,5 +26,11 @@ class TechnicalController(private val technicalService: TechnicalService) {
         return ResponseEntity.created(uri).body(response)
     }
 
+
+    @GetMapping
+    fun getAllTechnical(): ResponseEntity<List<TechnicalResponse>> {
+        val response = technicalService.findAllTechnical();
+       return ResponseEntity.status(HttpStatus.OK).body(response)
+    }
 
 }

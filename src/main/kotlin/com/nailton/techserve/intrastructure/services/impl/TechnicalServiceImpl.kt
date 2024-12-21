@@ -31,4 +31,8 @@ class TechnicalServiceImpl(private val repository: TechnicalRepository) : Techni
         // Converte a entidade salva em DTO de resposta
         return TechnicalResponse.fromEntityToResponse(savedTechnical)
     }
+
+    override fun findAllTechnical(): List<TechnicalResponse> {
+        return repository.findAll().map { TechnicalResponse.fromEntityToResponse(it) }.toList()
+    }
 }

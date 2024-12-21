@@ -6,4 +6,6 @@ import com.nailton.techserve.app.dto.response.TechnicalResponse
 interface  TechnicalService {
 
     fun createTechnical(request: TechnicalRequest): TechnicalResponse
+
+    fun findAllTechnical(): List<TechnicalResponse>
 }
