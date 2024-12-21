@@ -35,4 +35,11 @@ class TechnicalServiceImpl(private val repository: TechnicalRepository) : Techni
     override fun findAllTechnical(): List<TechnicalResponse> {
         return repository.findAll().map { TechnicalResponse.fromEntityToResponse(it) }.toList()
     }
+
+    override fun findTechnicalById(id: Long): TechnicalResponse {
+        val technical = repository.findById(id).orElseThrow {
+            throw ResponseStatusException(HttpStatus.NOT_FOUND, "Técnico não encontrado")
+        }
+        return TechnicalResponse.fromEntityToResponse(technical)
+    }
 }

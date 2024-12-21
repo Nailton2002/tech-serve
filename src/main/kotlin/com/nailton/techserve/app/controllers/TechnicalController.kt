@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/technicals")
 class TechnicalController(private val technicalService: TechnicalService) {
 
+    // Create (POST /technicals)
     @PostMapping
     fun createTechnical(@RequestBody @Valid request: TechnicalRequest, uriBuilder: UriComponentsBuilder): ResponseEntity<TechnicalResponse> {
 
@@ -26,11 +27,17 @@ class TechnicalController(private val technicalService: TechnicalService) {
         return ResponseEntity.created(uri).body(response)
     }
 
-
+    // Read All (GET /technicals)
     @GetMapping
     fun getAllTechnical(): ResponseEntity<List<TechnicalResponse>> {
         val response = technicalService.findAllTechnical();
        return ResponseEntity.status(HttpStatus.OK).body(response)
     }
 
+    // Read by ID (GET /technicals/{id})
+    @GetMapping("/{id}")
+    fun getTechnicalById(@PathVariable id: Long): ResponseEntity<TechnicalResponse> {
+        val response = technicalService.findTechnicalById(id)
+        return ResponseEntity.ok(response)
+    }
 }

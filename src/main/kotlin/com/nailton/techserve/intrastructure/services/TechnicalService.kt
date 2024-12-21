@@ -8,4 +8,6 @@ interface  TechnicalService {
     fun createTechnical(request: TechnicalRequest): TechnicalResponse
 
     fun findAllTechnical(): List<TechnicalResponse>
+
+    fun findTechnicalById(id: Long): TechnicalResponse
 }
