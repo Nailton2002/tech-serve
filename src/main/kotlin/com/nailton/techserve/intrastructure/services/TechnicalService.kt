@@ -9,7 +9,11 @@ interface  TechnicalService {
 
     fun findAllTechnical(): List<TechnicalResponse>
 
-    fun findTechnicalById(id: Long): TechnicalResponse
+    fun findByIdTechnical(id: Long): TechnicalResponse
 
     fun updateTechnical(id: Long, request: TechnicalRequest): TechnicalResponse
+
+    fun deleteTechnical(id: Long) {
+
+    }
 }

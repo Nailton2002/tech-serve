@@ -36,8 +36,8 @@ class TechnicalController(private val technicalService: TechnicalService) {
 
     // Read by ID (GET /technicals/{id})
     @GetMapping("/{id}")
-    fun getTechnicalById(@PathVariable id: Long): ResponseEntity<TechnicalResponse> {
-        val response = technicalService.findTechnicalById(id)
+    fun getByIdTechnical(@PathVariable id: Long): ResponseEntity<TechnicalResponse> {
+        val response = technicalService.findByIdTechnical(id)
         return ResponseEntity.status(HttpStatus.OK).body(response)
     }
 
@@ -46,5 +46,12 @@ class TechnicalController(private val technicalService: TechnicalService) {
     fun updateTechnical(@PathVariable id: Long, @RequestBody @Valid request: TechnicalRequest): ResponseEntity<TechnicalResponse> {
         val response = technicalService.updateTechnical(id, request)
         return ResponseEntity.status(HttpStatus.OK).body(response)
+    }
+
+    // Delete (DELETE /technicals/{id})
+    @DeleteMapping("/{id}")
+    fun deleteTechnical(@PathVariable id: Long): ResponseEntity<Void> {
+        technicalService.deleteTechnical(id)
+        return ResponseEntity.noContent().build()
     }
 }

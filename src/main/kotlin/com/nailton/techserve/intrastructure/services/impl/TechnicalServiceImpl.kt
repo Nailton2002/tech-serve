@@ -21,7 +21,6 @@ class TechnicalServiceImpl(private val repository: TechnicalRepository) : Techni
             // Lança exceção se houver duplicidade
             throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Já existe um técnico com o mesmo nome e telefone")
         }
-
         // Converte o request em entidade
         val technicalEntity = Technical.fromRequestToEntity(request)
 
@@ -32,16 +31,19 @@ class TechnicalServiceImpl(private val repository: TechnicalRepository) : Techni
         return TechnicalResponse.fromEntityToResponse(savedTechnical)
     }
 
+
     override fun findAllTechnical(): List<TechnicalResponse> {
         return repository.findAll().map { TechnicalResponse.fromEntityToResponse(it) }.toList()
     }
 
-    override fun findTechnicalById(id: Long): TechnicalResponse {
+
+    override fun findByIdTechnical(id: Long): TechnicalResponse {
         val technical = repository.findById(id).orElseThrow {
             throw ResponseStatusException(HttpStatus.NOT_FOUND, "Técnico não encontrado")
         }
         return TechnicalResponse.fromEntityToResponse(technical)
     }
+
 
     override fun updateTechnical(id: Long, request: TechnicalRequest): TechnicalResponse {
         // Busca a entidade existente
@@ -57,4 +59,13 @@ class TechnicalServiceImpl(private val repository: TechnicalRepository) : Techni
         //E retorna como resposta
         return TechnicalResponse.fromEntityToResponse(savedTechnical)
     }
+
+
+    override fun deleteTechnical(id: Long) {
+        val technical = repository.findById(id).orElseThrow {
+            throw ResponseStatusException(HttpStatus.NOT_FOUND, "Técnico não encontrado")
+        }
+        repository.delete(technical)
+    }
+
 }
