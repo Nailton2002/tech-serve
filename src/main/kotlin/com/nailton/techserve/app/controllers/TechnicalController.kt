@@ -6,6 +6,7 @@ import com.nailton.techserve.app.dto.request.TechnicalRequest
 import org.springframework.web.util.UriComponentsBuilder
 import org.springframework.http.ResponseEntity
 import jakarta.validation.Valid
+import org.springframework.data.jpa.domain.AbstractPersistable_.id
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 
@@ -32,6 +33,12 @@ class TechnicalController(private val technicalService: TechnicalService) {
     fun getAllTechnical(): ResponseEntity<List<TechnicalResponse>> {
         val response = technicalService.findAllTechnical();
        return ResponseEntity.status(HttpStatus.OK).body(response)
+    }
+
+    // Read by name (GET /technicals/name)
+    fun getByNameTechnical(@RequestParam(name = "name")name: String): ResponseEntity<List<TechnicalResponse>> {
+        val responses = technicalService.findTechnicalByName(name)
+        return ResponseEntity.status(HttpStatus.OK).body(responses);
     }
 
     // Read by ID (GET /technicals/{id})

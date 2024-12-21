@@ -57,6 +57,14 @@ class TechnicalServiceImpl(private val repository: TechnicalRepository) : Techni
         }
     }
 
+    override fun findTechnicalByName(name: String): List<TechnicalResponse> {
+        val technicalList = repository.findByName(name)
+        if (technicalList.isEmpty()){
+            throw BusinessRuleException("Nenhum técnico econtrado com o nome: $name")
+        }
+        return technicalList.stream().map { TechnicalResponse.fromEntityToResponse(it) }.toList()
+    }
+
 
     override fun findByIdTechnical(id: Long): TechnicalResponse {
 
