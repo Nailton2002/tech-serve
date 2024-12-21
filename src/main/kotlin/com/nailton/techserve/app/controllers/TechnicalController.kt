@@ -35,9 +35,17 @@ class TechnicalController(private val technicalService: TechnicalService) {
        return ResponseEntity.status(HttpStatus.OK).body(response)
     }
 
+    // Read by Telephone (GET /technicals/telephone)
+    @GetMapping("/telephone")
+    fun getByTelephoneTechnical(@RequestParam(name = "telephone")telephone: String): ResponseEntity<TechnicalResponse> {
+        val response = technicalService.findOneByTelephoneTechnical(telephone)
+        return ResponseEntity.status(HttpStatus.OK).body(response)
+    }
+
     // Read by name (GET /technicals/name)
+    @GetMapping("/names")
     fun getByNameTechnical(@RequestParam(name = "name")name: String): ResponseEntity<List<TechnicalResponse>> {
-        val responses = technicalService.findTechnicalByName(name)
+        val responses = technicalService.findByNameTechnical(name)
         return ResponseEntity.status(HttpStatus.OK).body(responses);
     }
 

@@ -57,12 +57,52 @@ class TechnicalServiceImpl(private val repository: TechnicalRepository) : Techni
         }
     }
 
-    override fun findTechnicalByName(name: String): List<TechnicalResponse> {
-        val technicalList = repository.findByName(name)
-        if (technicalList.isEmpty()){
-            throw BusinessRuleException("Nenhum técnico econtrado com o nome: $name")
+    override fun findByNameTechnical(name: String): List<TechnicalResponse> {
+
+        if (name.isBlank()) {
+            throw BusinessRuleException("O parâmetro 'name' não pode ser vazio ou em branco.")
         }
-        return technicalList.stream().map { TechnicalResponse.fromEntityToResponse(it) }.toList()
+
+        try {
+            // Busca os técnicos pelo nome
+//            val technicalList = repository.findByName(name)
+
+            println("Buscando técnicos pelo nome: $name") // Adicionar log para ver o valor recebido
+            val technicalList = repository.findByName(name).filter {
+                it.name.contains(name, ignoreCase = true) // Valida no Kotlin após a consulta
+            }
+
+            // Verifica se a lista está vazia e lança exceção personalizada
+            if (technicalList.isEmpty()) {
+                throw BusinessRuleException("Nenhum técnico econtrado com o nome: $name")
+            }
+            return technicalList.stream().map { TechnicalResponse.fromEntityToResponse(it) }.toList()
+
+        } catch (ex: DataIntegrityViolationException) {
+            throw DataIntegrityException("Erro de integridade ao buscar técnicos pelo nome: ${ex.message}")
+        } catch (ex: Exception) {
+            throw DatabaseException("Erro ao buscar técnicos no banco de dados", ex)
+        }
+    }
+
+    override fun findOneByTelephoneTechnical(telephone: String): TechnicalResponse {
+
+        if (telephone.isBlank()) {
+            throw BusinessRuleException("O parâmetro 'telephone' não pode ser vazio ou em branco.")
+        }
+
+        try {
+            // Busca o técnico pelo telefone, lançando exceção personalizada se não encontrado
+            val byTelephone = repository.findOneByTelephone(telephone).orElseThrow {
+                BusinessRuleException("Técnico não encontrado com o telefone: $telephone")
+            }
+            return TechnicalResponse.fromEntityToResponse(byTelephone)
+
+        } catch (ex: DataIntegrityViolationException) {
+            throw DataIntegrityException("Erro de integridade ao buscar o telefone do técnico: ${ex.message}")
+        } catch (ex: Exception) {
+            throw DatabaseException("Erro ao buscar o telefone do técnico no banco de dados", ex)
+        }
     }
 
 

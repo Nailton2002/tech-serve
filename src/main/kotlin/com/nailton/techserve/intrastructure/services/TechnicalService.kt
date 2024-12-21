@@ -13,7 +13,10 @@ interface TechnicalService {
     fun findAllTechnical(): List<TechnicalResponse>
 
     @Transactional(readOnly = true)
-    fun findTechnicalByName(name: String): List<TechnicalResponse>
+    fun findByNameTechnical(name: String): List<TechnicalResponse>
+
+    @Transactional(readOnly = true)
+    fun findOneByTelephoneTechnical(telephone: String): TechnicalResponse
 
     @Transactional(readOnly = true)
     fun findByIdTechnical(id: Long): TechnicalResponse
