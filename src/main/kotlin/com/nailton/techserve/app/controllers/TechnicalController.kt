@@ -38,6 +38,13 @@ class TechnicalController(private val technicalService: TechnicalService) {
     @GetMapping("/{id}")
     fun getTechnicalById(@PathVariable id: Long): ResponseEntity<TechnicalResponse> {
         val response = technicalService.findTechnicalById(id)
-        return ResponseEntity.ok(response)
+        return ResponseEntity.status(HttpStatus.OK).body(response)
+    }
+
+    // Update (PUT /technicals/{id})
+    @PutMapping("/{id}")
+    fun updateTechnical(@PathVariable id: Long, @RequestBody @Valid request: TechnicalRequest): ResponseEntity<TechnicalResponse> {
+        val response = technicalService.updateTechnical(id, request)
+        return ResponseEntity.status(HttpStatus.OK).body(response)
     }
 }

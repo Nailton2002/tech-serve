@@ -42,4 +42,19 @@ class TechnicalServiceImpl(private val repository: TechnicalRepository) : Techni
         }
         return TechnicalResponse.fromEntityToResponse(technical)
     }
+
+    override fun updateTechnical(id: Long, request: TechnicalRequest): TechnicalResponse {
+        // Busca a entidade existente
+        val existingTechnical = repository.findById(id).orElseThrow {
+            throw ResponseStatusException(HttpStatus.NOT_FOUND, "Técnico não encontrado")
+        }
+        // Cria uma nova instância com os valores atualizados
+        val updatedTechnical = existingTechnical.toUpdatedEntity(request)
+
+        // Salva no banco
+        val savedTechnical = repository.save(updatedTechnical)
+
+        //E retorna como resposta
+        return TechnicalResponse.fromEntityToResponse(savedTechnical)
+    }
 }
