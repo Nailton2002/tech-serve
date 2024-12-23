@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotBlank
 
 @Entity(name = "Technical")
 @Table(name = "tb_technical")
-data class Technical(
+data class  Technical(
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -172,4 +172,11 @@ class TechnicalServiceImpl(private val repository: TechnicalRepository) : Techni
         }
 
     }
+
+    override fun findEntityById(id: Long): Technical {
+        return repository.findById(id).orElseThrow {
+            BusinessRuleException("Técnico não encontrado para o ID: $id")
+        }
+    }
+
 }

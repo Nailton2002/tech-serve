@@ -9,4 +9,7 @@ interface ServiceOrderService {
     @Transactional
     fun createServiceOrder(request: ServiceOrderRequest): ServiceOrderResponse
 
+    @Transactional(readOnly = true)
+    fun findAllServiceOrder(): List<ServiceOrderResponse>
+
 }

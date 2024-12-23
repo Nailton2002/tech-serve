@@ -2,6 +2,7 @@ package com.nailton.techserve.domain.entities
 
 import com.fasterxml.jackson.annotation.JsonFormat
 import com.nailton.techserve.app.dto.request.ServiceOrderRequest
+import com.nailton.techserve.app.dto.request.TechnicalRequest
 import com.nailton.techserve.domain.enums.Status
 import jakarta.persistence.*
 import java.time.LocalDateTime
@@ -30,21 +31,36 @@ data class ServiceOrder(
 
 ) {
 
+
     companion object {
         /**
          * Converte um `ServiceOrderRequest` para uma entidade `ServiceOrder`.
          * Observação: É necessário buscar a entidade `Technical` do banco antes de usar esta função.
          */
-        fun fromRequestToEntity(request: ServiceOrderRequest, technical: Technical): ServiceOrder {
+        fun toEntity(request: ServiceOrderRequest, technical: Technical): ServiceOrder {
             return ServiceOrder(
                 description = request.description,
                 closingDate = request.closingDate,
-                technical = technical
+                technical = technical // Entidade técnica já carregada
             )
         }
     }
 
+
     fun toUpdateRntity(upRequest: ServiceOrderRequest): ServiceOrder {
         return this.copy(description = upRequest.description)
+    }
+
+
+    fun fromRequestToEntity(request: ServiceOrderRequest, technicalRequest: TechnicalRequest): ServiceOrder {
+        val technical = Technical(
+            name = technicalRequest.name,
+            telephone = technicalRequest.telephone
+        )
+        return ServiceOrder(
+            description = request.description,
+            closingDate = request.closingDate,
+            technical = technical
+        )
     }
 }

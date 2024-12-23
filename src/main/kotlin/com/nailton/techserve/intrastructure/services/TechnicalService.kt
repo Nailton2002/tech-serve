@@ -2,6 +2,7 @@ package com.nailton.techserve.intrastructure.services
 
 import com.nailton.techserve.app.dto.request.TechnicalRequest
 import com.nailton.techserve.app.dto.response.TechnicalResponse
+import com.nailton.techserve.domain.entities.Technical
 import org.springframework.transaction.annotation.Transactional
 
 interface TechnicalService {
@@ -26,6 +27,8 @@ interface TechnicalService {
 
     @Transactional
     fun deleteTechnical(id: Long)
+
+    fun findEntityById(id: Long): Technical
 }
 
 /*
