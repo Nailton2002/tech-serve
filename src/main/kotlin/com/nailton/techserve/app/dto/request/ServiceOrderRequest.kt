@@ -10,4 +10,5 @@ data class ServiceOrderRequest(
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy", timezone = "GMT")
     val closingDate: String
+
 )

@@ -47,8 +47,11 @@ data class ServiceOrder(
     }
 
 
-    fun toUpdateRntity(upRequest: ServiceOrderRequest): ServiceOrder {
-        return this.copy(description = upRequest.description)
+    fun toUpdateEntity(upRequest: ServiceOrderRequest): ServiceOrder {
+        return this.copy(
+            description = upRequest.description,
+            closingDate = upRequest.closingDate
+        )
     }
 
 

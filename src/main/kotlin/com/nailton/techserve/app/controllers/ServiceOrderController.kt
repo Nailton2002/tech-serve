@@ -1,6 +1,7 @@
 package com.nailton.techserve.app.controllers
 
 import com.nailton.techserve.app.dto.request.ServiceOrderRequest
+import com.nailton.techserve.app.dto.request.TechnicalRequest
 import com.nailton.techserve.app.dto.response.ServiceOrderResponse
 import com.nailton.techserve.app.dto.response.TechnicalResponse
 import com.nailton.techserve.intrastructure.services.ServiceOrderService
@@ -41,5 +42,11 @@ class ServiceOrderController(private val service: ServiceOrderService) {
     }
 
 
+    // Update (PUT /services-orders/{id})
+    @PutMapping("/{id}")
+    fun updateServiceOrder(@PathVariable id: Long, @RequestBody @Valid request: ServiceOrderRequest): ResponseEntity<ServiceOrderResponse> {
+        val response = service.updateServiceOrder(id, request)
+        return ResponseEntity.status(HttpStatus.OK).body(response)
+    }
 
 }

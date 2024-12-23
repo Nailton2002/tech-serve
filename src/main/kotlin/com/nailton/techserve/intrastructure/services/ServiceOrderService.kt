@@ -17,4 +17,7 @@ interface ServiceOrderService {
     @Transactional(readOnly = true)
     fun findByIdServiceOrder(id: Long): ServiceOrderResponse
 
+    @Transactional
+    fun updateServiceOrder(id: Long, request: ServiceOrderRequest): ServiceOrderResponse
+
 }
