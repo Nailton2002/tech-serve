@@ -25,9 +25,7 @@ interface TechnicalService {
     fun updateTechnical(id: Long, request: TechnicalRequest): TechnicalResponse
 
     @Transactional
-    fun deleteTechnical(id: Long) {
-
-    }
+    fun deleteTechnical(id: Long)
 }
 
 /*

@@ -16,7 +16,10 @@ data class Technical(
     val name: String,
 
     @field:NotBlank(message = "Telefone não pode ser vazio")
-    val telephone: String
+    val telephone: String,
+
+    @OneToMany(mappedBy = "technical", cascade = [CascadeType.ALL])
+    val serviceOrder: List<ServiceOrder> = emptyList()
 
 ) {
     companion object {
