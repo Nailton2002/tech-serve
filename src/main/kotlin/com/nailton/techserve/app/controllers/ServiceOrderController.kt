@@ -33,4 +33,13 @@ class ServiceOrderController(private val service: ServiceOrderService) {
     }
 
 
+    // Read by ID (GET /services-orders/{id})
+    @GetMapping("/{id}")
+    fun getByIdServiceOrder(@PathVariable id: Long): ResponseEntity<ServiceOrderResponse> {
+        val response = service.findByIdServiceOrder(id)
+        return ResponseEntity.status(HttpStatus.OK).body(response)
+    }
+
+
+
 }
